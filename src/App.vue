@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Analytics } from '@vercel/analytics/vue'
 import { computed, onMounted, ref } from 'vue'
 
 type SpecResult = {
@@ -215,6 +216,7 @@ function isValidIdea(input: string) {
 </script>
 
 <template>
+  <Analytics />
   <main class="app-shell">
     <section class="intro-panel">
       <div class="intro-copy">
