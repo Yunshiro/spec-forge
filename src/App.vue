@@ -21,7 +21,6 @@ const ACCESS_CODE_STORAGE_KEY = 'specforge:access-code'
 const idea = ref('')
 const providerId = ref('deepseek')
 const accessCode = ref('')
-const showProviderSettings = ref(false)
 const isGenerating = ref(false)
 const errorMessage = ref('')
 const copyStatus = ref('')
@@ -40,9 +39,6 @@ const exampleIdeas = [
 ]
 
 const resultJson = computed(() => (result.value ? JSON.stringify(result.value, null, 2) : ''))
-const selectedProviderLabel = computed(
-  () => providers.find((provider) => provider.id === providerId.value)?.label ?? 'DeepSeek',
-)
 const ideaCharacterCount = computed(() => idea.value.trim().length)
 
 const markdownSpec = computed(() => {
@@ -134,11 +130,6 @@ function getStoredValue(primaryKey: string, legacyKey: string) {
 function setExample(nextIdea: string) {
   idea.value = nextIdea
   errorMessage.value = ''
-}
-
-function selectProvider(nextProviderId: string) {
-  providerId.value = nextProviderId
-  saveProviderSettings()
 }
 
 async function generateSpec() {
@@ -248,49 +239,26 @@ function isValidIdea(input: string) {
             <label for="idea">Product idea</label>
             <p class="panel-caption">One sentence is enough. Chinese and English are both supported.</p>
           </div>
-          <button
-            class="settings-toggle"
-            type="button"
-            :aria-expanded="showProviderSettings"
-            @click="showProviderSettings = !showProviderSettings"
-          >
-            Provider
-          </button>
+          <label class="provider-select">
+            <span>Model</span>
+            <select v-model="providerId" @change="saveProviderSettings">
+              <option v-for="provider in providers" :key="provider.id" :value="provider.id">
+                {{ provider.label }}
+              </option>
+            </select>
+          </label>
         </div>
 
-        <div class="provider-strip">
-          <span>Provider</span>
-          <strong>{{ selectedProviderLabel }}</strong>
-        </div>
-
-        <div v-if="showProviderSettings" class="provider-settings">
-          <div class="provider-options" role="radiogroup" aria-label="Provider">
-            <button
-              v-for="provider in providers"
-              :key="provider.id"
-              class="provider-option"
-              :class="{ active: providerId === provider.id }"
-              type="button"
-              role="radio"
-              :aria-checked="providerId === provider.id"
-              @click="selectProvider(provider.id)"
-            >
-              {{ provider.label }}
-            </button>
-          </div>
-
-          <div v-if="requiresAccessCode" class="field-row">
-            <label for="access-code">Access Code</label>
-            <input
-              id="access-code"
-              v-model="accessCode"
-              type="password"
-              placeholder="Optional gate"
-              autocomplete="off"
-              @change="saveProviderSettings"
-            />
-          </div>
-          <p class="settings-note">Provider keys are configured on the server, not in the browser.</p>
+        <div v-if="requiresAccessCode" class="access-row">
+          <label for="access-code">Access Code</label>
+          <input
+            id="access-code"
+            v-model="accessCode"
+            type="password"
+            placeholder="Optional gate"
+            autocomplete="off"
+            @change="saveProviderSettings"
+          />
         </div>
 
         <textarea

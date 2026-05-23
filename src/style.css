@@ -86,7 +86,6 @@ textarea:focus-visible {
 .brand-row,
 .brand-lockup,
 .hero-metrics,
-.provider-strip,
 .result-summary,
 .summary-counts,
 .action-row,
@@ -99,7 +98,6 @@ textarea:focus-visible {
 
 .brand-row,
 .panel-header,
-.provider-strip,
 .action-row,
 .card-heading,
 .result-summary {
@@ -139,8 +137,7 @@ textarea:focus-visible {
 }
 
 .brand-subtitle,
-.panel-caption,
-.settings-note {
+.panel-caption {
   color: #7f8da0;
   font-size: 0.84rem;
 }
@@ -240,9 +237,21 @@ textarea::placeholder {
   color: #687586;
 }
 
-.settings-toggle {
-  min-width: 88px;
+.provider-select {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 8px;
+  color: #7f8da0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.provider-select select {
+  width: 126px;
   min-height: 34px;
+  padding: 0 32px 0 10px;
   border: 1px solid rgba(82, 214, 183, 0.32);
   border-radius: 8px;
   color: #c9f7ec;
@@ -253,60 +262,23 @@ textarea::placeholder {
   font-weight: 750;
 }
 
-.provider-strip,
-.provider-settings {
+.provider-select select:focus-visible {
+  outline: 2px solid rgba(82, 214, 183, 0.42);
+  outline-offset: 2px;
+}
+
+.access-row {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
   border: 1px solid rgba(139, 152, 170, 0.18);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.03);
 }
 
-.provider-strip {
-  gap: 12px;
-  padding: 10px 12px;
-  color: #aeb9c8;
-  font-size: 0.86rem;
-}
-
-.provider-strip strong {
-  color: #f3f7fb;
-}
-
-.provider-settings {
-  display: grid;
-  gap: 12px;
-  padding: 14px;
-}
-
-.provider-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.provider-option {
-  min-height: 40px;
-  border: 1px solid rgba(139, 152, 170, 0.25);
-  border-radius: 8px;
-  color: #aeb9c8;
-  background: rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  font-weight: 750;
-}
-
-.provider-option.active {
-  border-color: rgba(82, 214, 183, 0.62);
-  color: #07100d;
-  background: #52d6b7;
-}
-
-.field-row {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
-  align-items: center;
-  gap: 12px;
-}
-
-.field-row label {
+.access-row label {
   color: #aeb9c8;
   font-size: 0.84rem;
 }
@@ -655,11 +627,15 @@ pre {
 
   .action-row,
   .card-heading,
+  .panel-header,
   .brand-row,
-  .copy-group,
-  .field-row {
+  .copy-group {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .provider-select {
+    justify-content: space-between;
   }
 
   .primary-button,
@@ -668,9 +644,8 @@ pre {
     width: 100%;
   }
 
-  .field-row,
-  .empty-steps,
-  .provider-options {
+  .access-row,
+  .empty-steps {
     grid-template-columns: 1fr;
   }
 
