@@ -132,3 +132,4 @@ Do not revert unrelated user changes. Keep commits and patches scoped to the req
 
 - If the user's request is unclear, ask clarifying questions before making changes.
 - If the user asks in Chinese, reply in Chinese.
+- After changing code, do not commit or push unless the user explicitly asks for it.

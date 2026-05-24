@@ -41,4 +41,5 @@ Rules:
 - No fluff, no marketing copy.
 - Detect missing auth, edge cases, state handling, error handling, and permission logic.
 - Tasks must be ordered, dependency-aware, and MVP-oriented.
+- Tasks or implementation context must include a first-work rule: before starting implementation, scan the current project for existing requirement documents.
 - Do not include team collaboration, accounts, billing, visual graph editor, AI memory, multi-project management, real-time sync, plugins, or multi-model orchestration unless the user explicitly asked for them.
